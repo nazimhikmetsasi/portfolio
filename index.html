@@ -1,528 +1,325 @@
-<!DOCTYPE html>
-<html class="dark" lang="tr">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Nazım Hikmet Şaşı — Yazılım Mühendisi</title>
-<meta name="description" content="Nazım Hikmet Şaşı — Manisa Celal Bayar Üniversitesi Yazılım Mühendisliği öğrencisi. Web geliştirme, yapay zeka ve modern teknolojilere tutkulu yazılımcı.">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "on-primary-fixed-variant": "#3622ca","inverse-primary": "#4f44e2","on-surface-variant": "#c7c4d8",
-          "surface-container-high": "#25293a","surface-variant": "#2f3445","secondary-container": "#00d2fd",
-          "on-primary-fixed": "#100069","tertiary": "#ffb785","tertiary-fixed-dim": "#ffb785","primary": "#c4c0ff",
-          "on-primary-container": "#1b0091","on-error-container": "#ffdad6","on-secondary-fixed-variant": "#004e5f",
-          "primary-fixed-dim": "#c4c0ff","outline": "#918fa1","on-primary": "#2000a4","secondary-fixed": "#b4ebff",
-          "secondary-fixed-dim": "#3cd7ff","tertiary-container": "#db761f","primary-fixed": "#e3dfff",
-          "surface-container-lowest": "#090e1c","surface-container": "#1a1f2f","on-secondary-fixed": "#001f27",
-          "inverse-surface": "#dee1f7","tertiary-fixed": "#ffdcc6","primary-container": "#8781ff","on-tertiary": "#502500",
-          "on-tertiary-fixed": "#301400","surface": "#0e1322","surface-container-highest": "#2f3445","on-error": "#690005",
-          "error": "#ffb4ab","on-tertiary-container": "#461f00","surface-tint": "#c4c0ff","surface-bright": "#343949",
-          "error-container": "#93000a","surface-dim": "#0e1322","on-background": "#dee1f7","secondary": "#a2e7ff",
-          "surface-container-low": "#161b2b","on-surface": "#dee1f7","outline-variant": "#464555","background": "#0A0F1E",
-          "inverse-on-surface": "#2b3040","on-secondary": "#003642","on-tertiary-fixed-variant": "#713700","on-secondary-container": "#005669"
-        },
-        borderRadius: { "DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","3xl":"1.5rem","full":"9999px" },
-        spacing: { "section-padding-mobile":"64px","unit":"8px","container-max":"1200px","section-padding-desktop":"120px","gutter":"24px" },
-        fontFamily: { "body-lg":["Inter"],"body-md":["Inter"],"display-lg-mobile":["Outfit"],"display-lg":["Outfit"],"label-caps":["Inter"],"headline-md":["Outfit"] },
-        fontSize: {
-          "body-lg":["18px",{"lineHeight":"1.6","fontWeight":"300"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"300"}],
-          "display-lg-mobile":["40px",{"lineHeight":"1.2","letterSpacing":"-0.02em","fontWeight":"700"}],
-          "display-lg":["64px",{"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],
-          "label-caps":["12px",{"lineHeight":"1.0","letterSpacing":"0.1em","fontWeight":"600"}],
-          "headline-md":["32px",{"lineHeight":"1.3","fontWeight":"600"}]
-        }
-      }
-    }
-  }
-</script>
-<style>
-  html { scroll-behavior: smooth; }
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: #0A0F1E; }
-  ::-webkit-scrollbar-thumb { background: rgba(196,192,255,0.3); border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(196,192,255,0.5); }
-  .glass-level-2 { background:rgba(255,255,255,0.03); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); }
-  .glass-level-3 { background:rgba(255,255,255,0.08); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); border:1px solid rgba(255,255,255,0.15); box-shadow:0 0 40px rgba(196,192,255,0.1); }
-  .neon-border { position:relative; }
-  .neon-border::before { content:''; position:absolute; inset:-1px; background:linear-gradient(45deg,#c4c0ff,#a2e7ff); z-index:-1; border-radius:inherit; opacity:0; transition:opacity 0.3s ease; }
-  .neon-border:hover::before { opacity:1; }
-  .neon-text-gradient { background:linear-gradient(to right,#c4c0ff,#a2e7ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-  .hover-lift { transition:transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275),box-shadow 0.3s ease; }
-  .hover-lift:hover { transform:translateY(-8px); box-shadow:0 20px 40px rgba(196,192,255,0.15); }
-  #cursor-glow { position:fixed; top:0; left:0; width:400px; height:400px; background:radial-gradient(circle,rgba(196,192,255,0.15) 0%,rgba(10,15,30,0) 70%); border-radius:50%; pointer-events:none; transform:translate(-50%,-50%); z-index:9999; transition:opacity 0.3s ease; mix-blend-mode:screen; }
-  .reveal { opacity:0; transform:translateY(40px); transition:all 0.8s cubic-bezier(0.5,0,0,1); }
-  .reveal.active { opacity:1; transform:translateY(0); }
-  .skill-chip { transition:all 0.2s ease; cursor:default; }
-  .skill-chip:hover { background:rgba(196,192,255,0.12); border-color:rgba(196,192,255,0.4); transform:scale(1.05); }
-  #mobile-menu { display:none; }
-  #mobile-menu.open { display:flex; }
-  .project-link { transition:all 0.2s ease; }
-  .project-link:hover { color:#a2e7ff; transform:scale(1.1); }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nazım Hikmet Şasi — Backend Developer</title>
+  <meta name="description" content="Backend developer (.NET / C#, Python) building reliable APIs, business workflows and real-time computer vision systems.">
+  <meta property="og:title" content="Nazım Hikmet Şasi — Backend Developer">
+  <meta property="og:description" content=".NET / C# and Python developer focused on reliable APIs, business workflows and data integrity.">
+  <meta property="og:image" content="https://nazimhikmetsasi.com.tr/assets/hero.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231b211e'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Arial' font-weight='700' font-size='26' fill='%23f2eee5' letter-spacing='-3'%3ENH%C5%9E%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-background text-on-surface font-body-md overflow-x-hidden selection:bg-primary/30 selection:text-primary min-h-screen">
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+</svg>
+<style>.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}</style>
 
-<div id="cursor-glow"></div>
-
-<!-- NAV -->
-<nav id="navbar" class="fixed top-0 w-full z-50 bg-surface/30 backdrop-blur-md border-b border-white/10 transition-all duration-300">
-  <div class="max-w-[1200px] mx-auto px-6 flex justify-between items-center h-16">
-    <a href="#hero" class="block w-8"></a>
-    <div class="hidden md:flex items-center gap-6">
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps hover:bg-primary/10 px-3 py-2 rounded" href="#about">Hakkımda</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps hover:bg-primary/10 px-3 py-2 rounded" href="#skills">Yetenekler</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps hover:bg-primary/10 px-3 py-2 rounded" href="#projects">Projeler</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps hover:bg-primary/10 px-3 py-2 rounded" href="#experience">Deneyim</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps hover:bg-primary/10 px-3 py-2 rounded" href="#contact">İletişim</a>
+<main class="site-shell">
+  <nav class="nav container">
+    <a class="mark" href="#top">NHŞ</a>
+    <div class="nav-links">
+      <a href="#about" data-tr="Hakkımda">About</a>
+      <a href="#work" data-tr="Projeler">Work</a>
+      <a href="#experience" data-tr="Deneyim">Experience</a>
+      <a href="#approach" data-tr="Yaklaşım">Approach</a>
+      <a href="#skills" data-tr="Yetenekler">Skills</a>
+      <a href="#contact" data-tr="İletişim">Contact</a>
     </div>
-
-    <button id="menu-toggle" class="md:hidden text-on-surface p-2"><span class="material-symbols-outlined">menu</span></button>
-  </div>
-  <div id="mobile-menu" class="flex-col gap-2 px-6 pb-4 md:hidden bg-surface/95 backdrop-blur-md border-t border-white/5">
-    <a class="text-on-surface-variant hover:text-primary py-2 font-label-caps text-label-caps block" href="#about">Hakkımda</a>
-    <a class="text-on-surface-variant hover:text-primary py-2 font-label-caps text-label-caps block" href="#skills">Yetenekler</a>
-    <a class="text-on-surface-variant hover:text-primary py-2 font-label-caps text-label-caps block" href="#projects">Projeler</a>
-    <a class="text-on-surface-variant hover:text-primary py-2 font-label-caps text-label-caps block" href="#experience">Deneyim</a>
-    <a class="text-on-surface-variant hover:text-primary py-2 font-label-caps text-label-caps block" href="#contact">İletişim</a>
-  </div>
-</nav>
-
-<main class="px-0 pt-20">
-
-  <!-- HERO -->
-  <section class="relative min-h-screen flex flex-col justify-center items-start overflow-hidden mb-0" id="hero">
-    <div class="absolute inset-0 w-full h-full z-0 opacity-50">
-      <canvas id="hero-canvas" style="display:block;width:100%;height:100%"></canvas>
-      <script>
-        (function(){
-          const canvas=document.getElementById('hero-canvas');
-          function syncSize(){const w=canvas.clientWidth||1280,h=canvas.clientHeight||720;if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}}
-          if(typeof ResizeObserver!=='undefined'){new ResizeObserver(syncSize).observe(canvas);}syncSize();
-          const gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');if(!gl)return;
-          const vs=`attribute vec2 a_position;varying vec2 v_tc;void main(){v_tc=a_position*.5+.5;gl_Position=vec4(a_position,0,1);}`;
-          const fs=`precision highp float;varying vec2 v_tc;uniform float u_t;uniform vec2 u_res;uniform vec2 u_mouse;
-            float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
-            void main(){vec2 p=(gl_FragCoord.xy*2.-u_res)/min(u_res.x,u_res.y);vec3 col=vec3(.039,.059,.118);
-            for(float i=0.;i<50.;i++){float h=hash(vec2(i,123.45));vec2 pos=vec2(cos(u_t*.2+h*6.28),sin(u_t*.3+h*6.28))*.9;
-            float d=length(p-pos);vec3 pc=mix(vec3(.424,.388,1.),vec3(0.,.831,1.),h);col+=pc*.001/(d+.001)*(0.5+0.5*sin(u_t+h*10.));}
-            vec2 mn=(u_mouse/u_res)*2.-1.;mn.y*=-1.;col+=vec3(.424,.388,1.)*.04/(length(p-mn*.8)+.001)*.4;gl_FragColor=vec4(col,1.);}`;
-          function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
-          const prog=gl.createProgram();gl.attachShader(prog,cs(gl.VERTEX_SHADER,vs));gl.attachShader(prog,cs(gl.FRAGMENT_SHADER,fs));
-          gl.linkProgram(prog);gl.useProgram(prog);
-          const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
-          const pl=gl.getAttribLocation(prog,'a_position');gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
-          const ut=gl.getUniformLocation(prog,'u_t'),ur=gl.getUniformLocation(prog,'u_res'),um=gl.getUniformLocation(prog,'u_mouse');
-          let mx=canvas.width/2,my=canvas.height/2;
-          window.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();if(r.width&&r.height){mx=(e.clientX-r.left)/r.width*canvas.width;my=(1-(e.clientY-r.top)/r.height)*canvas.height;}});
-          function render(t){if(typeof ResizeObserver==='undefined')syncSize();gl.viewport(0,0,canvas.width,canvas.height);gl.uniform1f(ut,t*.001);gl.uniform2f(ur,canvas.width,canvas.height);gl.uniform2f(um,mx,my);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(render);}
-          render(0);
-        })();
-      </script>
+    <div class="nav-actions">
+      <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="tr" aria-pressed="false">TR</button><button type="button" data-lang="en" aria-pressed="true">EN</button></div>
+      <a class="button button-dark button-small" href="cv/Nazim_Hikmet_Sasi_CV_EN.pdf" data-tr-href="cv/Nazim_Hikmet_Sasi_CV_TR.pdf" download><span data-tr="CV İndir">Download CV</span> <svg class="i"><use href="#i-down"/></svg></a>
     </div>
-    <div class="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent z-1"></div>
-    <div class="relative z-10 w-full max-w-[1200px] mx-auto px-6 reveal active">
-      <span class="font-label-caps text-label-caps text-secondary tracking-widest mb-4 block">Yazılım Mühendisi · Bursa, Türkiye</span>
-      <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-4">
-        Nazım Hikmet <span class="neon-text-gradient">Şasi</span>
-      </h1>
-      <p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
-        Karmaşık problemleri sade ve ölçeklenebilir dijital çözümlere dönüştürüyorum. Temiz kod mimarisi, modern kullanıcı deneyimi ve yüksek performans odaklı sistemler inşa ediyorum.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#8781ff] text-[#1b0091] font-label-caps text-label-caps rounded-full hover:bg-[#c4c0ff] transition-all hover:scale-105 shadow-[0_0_30px_rgba(196,192,255,0.3)]" href="#projects">
-          <span class="material-symbols-outlined text-sm">folder_open</span>Projelerimi Gör
-        </a>
+  </nav>
+
+  <section id="top" class="hero">
+    <div class="hero-image"></div><div class="hero-vignette"></div>
+    <div class="hero-content container">
+      <p class="eyebrow light" data-tr="BACKEND GELİŞTİRİCİ · .NET · PYTHON">BACKEND DEVELOPER · .NET · PYTHON</p>
+      <h1 data-tr="Kendini ölçen<br><em>sistemler kuruyorum.</em>">I build systems<br><em>that measure themselves.</em></h1>
+      <p class="hero-sub" data-tr=".NET / C# ve Python ile güvenilir API'ler, iş akışları ve veri bütünlüğü üzerine çalışan bir yazılım mühendisliği öğrencisiyim.">.NET / C# and Python developer focused on reliable APIs, business workflows and data integrity.</p>
+      <div class="hero-actions">
+        <a class="button button-paper" href="#work"><span data-tr="Projeleri Gör">View Work</span> <svg class="i"><use href="#i-down"/></svg></a>
+        <a class="button button-outline-light" href="https://github.com/nazimhikmetsasi" target="_blank" rel="noreferrer">GitHub <svg class="i"><use href="#i-code"/></svg></a>
       </div>
-      <div class="flex gap-6 mt-10">
-        <a href="https://github.com/nazimhikmetsasi" target="_blank" class="text-outline hover:text-primary transition-colors flex items-center gap-2 font-label-caps text-label-caps">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a href="https://linkedin.com/in/nazimhikmetsasi" target="_blank" class="text-outline hover:text-primary transition-colors flex items-center gap-2 font-label-caps text-label-caps">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-          LinkedIn
-        </a>
-        <a href="mailto:nazimhikmetsasi@gmail.com" class="text-outline hover:text-primary transition-colors flex items-center gap-2 font-label-caps text-label-caps">
-          <span class="material-symbols-outlined text-base">mail</span>E-posta
-        </a>
-      </div>
+      <p class="availability"><span></span><b data-tr="Staja ve yeni mezun pozisyonlarına açığım — 2027" style="font-weight:normal">Open to internships &amp; new-grad roles — 2027</b></p>
+    </div>
+    <div class="scroll-cue"><span data-tr="kaydır">scroll</span><i></i></div>
+  </section>
+
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>282</strong><span data-tr="üretim iş akışı uygulamasında otomatik test">automated tests in a production workflow app</span></div>
+      <div class="stat"><strong>12</strong><span data-tr="Turnike'de mimari karar kaydı (ADR)">architecture decision records in Turnike</span></div>
+      <div class="stat"><strong>42</strong><span data-tr="OmniCampus'ta REST uç noktası">REST endpoints in OmniCampus</span></div>
+      <div class="stat"><strong>117 → 0</strong><span data-tr="AGV filo testinde çarpışma">collisions in AGV fleet benchmark</span></div>
     </div>
   </section>
 
-  <div class="max-w-[1200px] mx-auto px-6">
-
-  <!-- HAKKIMDA -->
-  <section class="py-24 reveal" id="about">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-      <div class="relative group order-2 md:order-1">
-        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-2xl blur-2xl opacity-20 group-hover:opacity-35 transition-opacity duration-500"></div>
-        <div class="relative glass-level-2 rounded-2xl p-1 neon-border">
-          <div class="w-full aspect-square rounded-2xl overflow-hidden bg-surface-container">
-<div class="relative glass-level-2 rounded-2xl overflow-hidden neon-border">
-  <div class="w-full aspect-square overflow-hidden rounded-2xl">
-    <img 
-      src="./profil-yeni.png"
-      alt="Nazım'ın profil fotoğrafı"
-      class="w-full h-full object-cover"
-    >
-  </div>
-</div>
-</div>
-        </div>
-        <div class="absolute -bottom-4 -right-4 glass-level-3 rounded-xl px-4 py-3 flex items-center gap-3">
-          <div class="w-2.5 h-2.5 rounded-full bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.8)] animate-pulse"></div>
-          <span class="font-label-caps text-label-caps text-on-surface">Açık Pozisyon Arıyor</span>
-        </div>
-      </div>
-      <div class="order-1 md:order-2">
-        <span class="font-label-caps text-label-caps text-secondary tracking-widest mb-3 block">Hakkımda</span>
-        <h2 class="font-headline-md text-headline-md neon-text-gradient mb-6">Merhaba, ben Nazım 👋</h2>
-        <p class="font-body-lg text-body-lg text-on-surface-variant mb-5">
-          Yazılım Mühendisliği öğrencisi ve modern teknolojilerle üretmeye çok istekli bir geliştiriciyim. Next.js, Node.js ve modern web mimarileriyle yüksek performanslı, temiz kodlu ve kullanıcı odaklı çözümler inşa ediyorum.
-        </p>
-        <p class="font-body-md text-body-md text-outline mb-8">
-          Mühendislik disiplini, güçlü problem çözme yetkinliği ve modern arayüz vizyonunu bir araya getirerek değer üreten projeler geliştiriyorum.
-        </p>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="glass-level-2 rounded-xl p-4 flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary text-2xl">school</span>
-            <div><p class="font-label-caps text-label-caps text-on-surface">Üniversite</p><p class="font-body-md text-body-md text-outline text-xs mt-0.5">MCB Üniversitesi</p></div>
-          </div>
-          <div class="glass-level-2 rounded-xl p-4 flex items-center gap-3">
-            <span class="material-symbols-outlined text-secondary text-2xl">location_on</span>
-            <div><p class="font-label-caps text-label-caps text-on-surface">Konum</p><p class="font-body-md text-body-md text-outline text-xs mt-0.5">Bursa, Türkiye</p></div>
-          </div>
-          <div class="glass-level-2 rounded-xl p-4 flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary text-2xl">work</span>
-            <div><p class="font-label-caps text-label-caps text-on-surface">Durum</p><p class="font-body-md text-body-md text-outline text-xs mt-0.5">Fırsatlara Açık</p></div>
-          </div>
-          <div class="glass-level-2 rounded-xl p-4 flex items-center gap-3 col-span-2">
-            <span class="material-symbols-outlined text-secondary text-2xl">favorite</span>
-            <div><p class="font-label-caps text-label-caps text-on-surface">İlgi Alanları</p><p class="font-body-md text-body-md text-outline text-xs mt-0.5">AI · Web Geliştirme · Mobil · Makine Öğrenmesi · Sistem Tasarımı · Açık Kaynak</p></div>
-          </div>
-        </div>
-      </div>
+  <section id="about" class="section container about">
+    <figure class="about-photo"><img src="assets/profile.jpg" alt="Nazım Hikmet Şasi" width="720" height="960" loading="lazy"></figure>
+    <div>
+      <p class="eyebrow" data-tr="00 — HAKKIMDA">00 — ABOUT</p>
+      <h2 data-tr="Merhaba,<br><em>ben Nazım.</em>">Hi,<br><em>I'm Nazım.</em></h2>
+      <p class="about-text" data-tr="Manisa Celal Bayar Üniversitesi Yazılım Mühendisliği 4. sınıf öğrencisiyim ve ULUTEK Teknoloji Geliştirme Bölgesi'nde backend stajyeri olarak çalışıyorum.">I'm a 4th-year Software Engineering student at Manisa Celal Bayar University and a backend intern at ULUTEK Technology Development Zone.</p>
+      <p class="about-text" data-tr="Backend'in göze görünmeyen kısımlarını seviyorum: eşzamanlılık, veri bütünlüğü, testler ve bir kararın neden alındığını anlatan karar kayıtları. AI kodlama ajanlarını her gün kullanıyorum; ürettikleri her satırı doğruluyor, test ediyor ve açıklayabiliyorum.">I enjoy the unglamorous parts of backend work: concurrency, data integrity, tests, and the decision records that explain why. I use AI coding agents every day — and I verify, test and can explain every line they produce.</p>
+      <dl class="facts">
+        <div><dt data-tr="ŞU AN">CURRENTLY</dt><dd data-tr="Backend stajyeri · ULUTEK">Backend intern · ULUTEK</dd></div>
+        <div><dt data-tr="EĞİTİM">EDUCATION</dt><dd data-tr="Yazılım Müh. (Lisans) — 2027">B.Sc. Software Eng. — 2027</dd></div>
+        <div><dt data-tr="ODAK">FOCUS</dt><dd data-tr=".NET backend · veri bütünlüğü">.NET backend · data integrity</dd></div>
+        <div><dt data-tr="DİLLER">LANGUAGES</dt><dd data-tr="Türkçe (ana dil) · İngilizce (B2)">Turkish (native) · English (B2)</dd></div>
+      </dl>
     </div>
   </section>
 
-  <!-- YETENEKler -->
-  <section class="py-24 reveal" id="skills">
-    <div class="text-center mb-16">
-      <span class="font-label-caps text-label-caps text-secondary tracking-widest mb-3 block">Teknolojiler</span>
-      <h2 class="font-headline-md text-headline-md neon-text-gradient">Yetenekler</h2>
+  <section id="work" class="section container">
+    <div class="section-head">
+      <div><p class="eyebrow" data-tr="01 — SEÇİLİ PROJELER">01 — SELECTED WORK</p><h2 data-tr="Seçili Projeler">Selected Work</h2></div>
+      <p data-tr="Gerçek kullanıcıları, gerçek parası ve gerçek yarış durumları olan sistemler. Her kartın arkasında alınan kararlar ve ölçümler var.">Systems with real users, real money and real race conditions. Flip a card for the decisions and the numbers behind it.</p>
     </div>
-    <div class="mb-10">
-      <h3 class="font-label-caps text-label-caps text-outline mb-5 flex items-center gap-3"><span class="h-px flex-1 bg-outline-variant"></span>Programlama Dilleri<span class="h-px flex-1 bg-outline-variant"></span></h3>
-      <div class="flex flex-wrap gap-3 justify-center">
-        <span class="skill-chip glass-level-2 border border-primary/20 text-primary font-label-caps text-label-caps px-5 py-2.5 rounded-full">JavaScript</span>
-        <span class="skill-chip glass-level-2 border border-primary/20 text-primary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Python</span>
-        <span class="skill-chip glass-level-2 border border-primary/20 text-primary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Java</span>
-        <span class="skill-chip glass-level-2 border border-primary/20 text-primary font-label-caps text-label-caps px-5 py-2.5 rounded-full">C</span>
-        <span class="skill-chip glass-level-2 border border-primary/20 text-primary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Kotlin</span>
-        <span class="skill-chip glass-level-2 border border-primary/20 text-primary font-label-caps text-label-caps px-5 py-2.5 rounded-full">SQL</span>
-        <span class="skill-chip glass-level-2 border border-primary/20 text-primary font-label-caps text-label-caps px-5 py-2.5 rounded-full">TypeScript</span>
-      </div>
-    </div>
-    <div class="mb-10">
-      <h3 class="font-label-caps text-label-caps text-outline mb-5 flex items-center gap-3"><span class="h-px flex-1 bg-outline-variant"></span>Framework & Kütüphaneler<span class="h-px flex-1 bg-outline-variant"></span></h3>
-      <div class="flex flex-wrap gap-3 justify-center">
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Next.js</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">React.js</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Node.js</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Express.js</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Tailwind CSS</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">.NET Core</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">ASP.NET Core Web API</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Android SDK</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Firebase</span>
-        <span class="skill-chip glass-level-2 border border-secondary/20 text-secondary font-label-caps text-label-caps px-5 py-2.5 rounded-full">Windows Forms</span>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-label-caps text-label-caps text-outline mb-5 flex items-center gap-3"><span class="h-px flex-1 bg-outline-variant"></span>Araçlar<span class="h-px flex-1 bg-outline-variant"></span></h3>
-        <div class="flex flex-wrap gap-3">
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">Git & GitHub</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">Linux (Ubuntu)</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">Docker</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">Postman</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">Visual Studio Code</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">Visual Studio</span>
-        </div>
-      </div>
-      <div>
-        <h3 class="font-label-caps text-label-caps text-outline mb-5 flex items-center gap-3"><span class="h-px flex-1 bg-outline-variant"></span>Kavramlar<span class="h-px flex-1 bg-outline-variant"></span></h3>
-        <div class="flex flex-wrap gap-3">
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">OOP</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">SOLID</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">MVC / MVVM</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">RESTful API</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">CRUD</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">JWT Auth</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">SOA</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">Clean Code</span>
-          <span class="skill-chip glass-level-2 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-4 py-2 rounded-full">Responsive Design</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- PROJELER -->
-  <section class="py-24 reveal" id="projects">
-    <div class="text-center mb-16">
-      <span class="font-label-caps text-label-caps text-secondary tracking-widest mb-3 block">Çalışmalarım</span>
-      <h2 class="font-headline-md text-headline-md neon-text-gradient">Projeler</h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      <!-- HumanOrAI -->
-      <div class="glass-level-2 rounded-2xl overflow-hidden hover-lift group flex flex-col h-full neon-border">
-        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-purple-900/40 to-cyan-900/30 flex items-center justify-center">
-          <span class="material-symbols-outlined text-7xl text-primary opacity-50 group-hover:scale-110 transition-transform duration-500">psychology</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
-        </div>
-        <div class="p-6 flex flex-col flex-grow">
-          <div class="flex justify-between items-start mb-3">
-            <h3 class="font-headline-md text-on-surface text-xl font-semibold">HumanOrAI</h3>
-            <a href="https://github.com/nazimhikmetsasi/HumanOrAI" target="_blank" class="project-link text-outline">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-          </div>
-          <p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow text-sm leading-relaxed">Makale metninin insan mı yoksa yapay zekâ tarafından mı yazıldığını tahmin eden Python masaüstü uygulaması. Logistic Regression, SVM ve fine-tuned DistilBERT modellerini paralel çalıştırır.</p>
-          <div class="flex flex-wrap gap-2 mt-auto">
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">Python</span>
-            <span class="bg-surface-bright text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-secondary/20">ML</span>
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">DistilBERT</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- BenimMutfağım -->
-      <div class="glass-level-2 rounded-2xl overflow-hidden hover-lift group flex flex-col h-full">
-        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-orange-900/30 to-purple-900/40 flex items-center justify-center">
-          <span class="material-symbols-outlined text-7xl text-tertiary opacity-50 group-hover:scale-110 transition-transform duration-500">restaurant</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
-        </div>
-        <div class="p-6 flex flex-col flex-grow">
-          <div class="flex justify-between items-start mb-3">
-            <h3 class="font-headline-md text-on-surface text-xl font-semibold">BenimMutfağım</h3>
-            <span class="font-label-caps text-label-caps text-outline/50 text-xs bg-surface-container px-2 py-1 rounded">Private</span>
-          </div>
-          <p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow text-sm leading-relaxed">Buzdolabı fotoğrafından malzeme tanıyıp Türkçe tarifler öneren ve eksik malzemeleri alışveriş listesine çıkaran mobil + web uygulama. Türk mutfağına özel tarif motoru içerir.</p>
-          <div class="flex flex-wrap gap-2 mt-auto">
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">TypeScript</span>
-            <span class="bg-surface-bright text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-secondary/20">React Native</span>
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">Supabase</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- TRAVEX -->
-      <div class="glass-level-2 rounded-2xl overflow-hidden hover-lift group flex flex-col h-full neon-border">
-        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-cyan-900/30 to-indigo-900/40 flex items-center justify-center">
-          <span class="material-symbols-outlined text-7xl text-secondary opacity-50 group-hover:scale-110 transition-transform duration-500">precision_manufacturing</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
-          <div class="absolute top-3 right-3 font-label-caps text-label-caps text-secondary text-xs bg-secondary/10 border border-secondary/20 px-2 py-1 rounded-full">OGTY 2026</div>
-        </div>
-        <div class="p-6 flex flex-col flex-grow">
-          <h3 class="font-headline-md text-on-surface text-xl font-semibold mb-3">TRAVEX</h3>
-          <p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow text-sm leading-relaxed">Saha içi AGV/AMR araçları için çarpışmasız trafik koordinasyon sistemi. 15. Otomotivin Geleceği Tasarım Yarışması (OGTY 2026) projesi. Çarpışmasızlık yapısal olarak garanti edilir.</p>
-          <div class="flex flex-wrap gap-2 mt-auto">
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">Python</span>
-            <span class="bg-surface-bright text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-secondary/20">TypeScript</span>
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">Simülasyon</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- VideoAnomalySystem -->
-      <div class="glass-level-2 rounded-2xl overflow-hidden hover-lift group flex flex-col h-full">
-        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-red-900/20 to-purple-900/40 flex items-center justify-center">
-          <span class="material-symbols-outlined text-7xl opacity-50 group-hover:scale-110 transition-transform duration-500" style="color:#ffb4ab">videocam</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
-        </div>
-        <div class="p-6 flex flex-col flex-grow">
-          <div class="flex justify-between items-start mb-3">
-            <h3 class="font-headline-md text-on-surface text-xl font-semibold">Video Anomaly System</h3>
-            <span class="font-label-caps text-label-caps text-outline/50 text-xs bg-surface-container px-2 py-1 rounded">Private</span>
-          </div>
-          <p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow text-sm leading-relaxed">Gerçek zamanlı video akışında anomali tespiti yapan, çok kamera destekli sistem. Docker containerize backend + frontend ile production'a hazır altyapı ve bildirim entegrasyonu.</p>
-          <div class="flex flex-wrap gap-2 mt-auto">
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">Python</span>
-            <span class="bg-surface-bright text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-secondary/20">Docker</span>
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">AI/ML</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- İkinciElAraç -->
-      <div class="glass-level-2 rounded-2xl overflow-hidden hover-lift group flex flex-col h-full">
-        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-green-900/20 to-cyan-900/30 flex items-center justify-center">
-          <span class="material-symbols-outlined text-7xl text-secondary opacity-50 group-hover:scale-110 transition-transform duration-500">directions_car</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
-        </div>
-        <div class="p-6 flex flex-col flex-grow">
-          <div class="flex justify-between items-start mb-3">
-            <h3 class="font-headline-md text-on-surface text-xl font-semibold">İkinciElAraç</h3>
-            <a href="https://github.com/nazimhikmetsasi/IkinciElAra-" target="_blank" class="project-link text-outline">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-          </div>
-          <p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow text-sm leading-relaxed">Node.js, MSSQL ve C teknolojileri ile SOA mimarisine uygun geliştirilmiş ikinci el araç alım-satım platformu. İlan yönetimi, kullanıcı yönetimi ve filtreleme modülleri içerir.</p>
-          <div class="flex flex-wrap gap-2 mt-auto">
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">Node.js</span>
-            <span class="bg-surface-bright text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full border border-secondary/20">MSSQL</span>
-            <span class="bg-surface-bright text-primary font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary/20">C</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Kurumsal Projeler -->
-      <div class="glass-level-2 rounded-2xl overflow-hidden hover-lift group flex flex-col h-full border border-dashed border-outline-variant/40">
-        <div class="p-6 flex flex-col flex-grow items-center justify-center text-center gap-4 min-h-[300px]">
-          <span class="material-symbols-outlined text-5xl text-outline/40">business_center</span>
-          <h3 class="font-headline-md text-on-surface text-xl font-semibold">Kurumsal Projeler</h3>
-          <p class="font-body-md text-body-md text-outline text-sm leading-relaxed">Çeşitli firmalar için web uygulamaları, yapay zekâ sistemleri, yönetim panelleri ve otomasyon araçları geliştirdim.</p>
-          <p class="font-label-caps text-label-caps text-outline/40 text-xs mt-1">Gizlilik nedeniyle paylaşılamamaktadır.</p>
-          <div class="flex flex-wrap gap-2 justify-center mt-2">
-            <span class="bg-surface-container text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded-full border border-outline-variant/20">Web App</span>
-            <span class="bg-surface-container text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded-full border border-outline-variant/20">AI Sistemi</span>
-            <span class="bg-surface-container text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded-full border border-outline-variant/20">Yönetim Paneli</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- EĞİTİM & DENEYIM -->
-  <section class="py-24 reveal" id="experience">
-    <div class="text-center mb-16">
-      <span class="font-label-caps text-label-caps text-secondary tracking-widest mb-3 block">Geçmişim</span>
-      <h2 class="font-headline-md text-headline-md neon-text-gradient">Eğitim & Deneyim</h2>
-    </div>
-    <div class="space-y-6 max-w-3xl mx-auto">
-
-      <div class="glass-level-2 rounded-2xl p-6 hover-lift relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-secondary rounded-l-2xl"></div>
-        <div class="pl-4">
-          <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
-            <div>
-              <span class="font-label-caps text-label-caps text-secondary tracking-widest block mb-1">Lisans</span>
-              <h3 class="font-headline-md text-on-surface text-xl font-semibold">Yazılım Mühendisliği</h3>
-              <p class="font-body-md text-body-md text-on-surface-variant mt-1">Manisa Celal Bayar Üniversitesi · Teknoloji Fakültesi</p>
+    <div class="project-grid">
+      <article class="project-card" tabindex="0" role="button" aria-pressed="false">
+        <div class="project-inner">
+          <div class="project-front">
+            <pre class="project-art term"><b>$</b> dotnet test
+<i>Passed!  Failed: 0, Passed: 282</i>
+<b>$</b> git log --oneline | wc -l
+<i>93</i></pre>
+            <div class="project-copy">
+              <div class="card-meta"><span class="badge" data-tr="STAJ · ULUTEK">INTERNSHIP · ULUTEK</span><span class="private" data-tr="şirket kodu · gizli">company code · private</span></div>
+              <h3 data-tr="Promer — Prototipleme Merkezi Yönetim Sistemi">Promer — Prototyping Center Management</h3>
+              <p data-tr="Talepten teslime; teklif, sipariş, iş emri ve üretim süreçlerini 5 rol için uçtan uca yöneten iş akışı uygulaması.">End-to-end workflow app: request → quote → order → work order → production → delivery, for 5 roles.</p>
+              <div class="tags"><span>.NET 9</span><span>ASP.NET Core MVC</span><span>EF Core</span><span>SQL Server</span><span>xUnit</span></div>
             </div>
-            <span class="font-label-caps text-label-caps text-outline glass-level-2 px-4 py-2 rounded-full border border-outline-variant/30 whitespace-nowrap">2023 — Günümüz</span>
           </div>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="bg-surface-container text-primary font-label-caps text-label-caps px-3 py-1 rounded-full">3. Sınıf</span>
-            <span class="bg-surface-container text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded-full">Manisa, Türkiye</span>
+          <div class="project-back">
+            <div class="card-meta"><span class="badge badge-dark" data-tr="SAHA NOTLARI">FIELD NOTES</span><span class="mono">01</span></div>
+            <h3 data-tr="Baskı altında<br>ne dayandı.">What held up<br>under pressure.</h3>
+            <ul>
+              <li data-tr="Parolasız giriş: e-postaya tek kullanımlık kod (OTP)">Passwordless login with one-time e-mail codes (OTP)</li>
+              <li data-tr="Eşzamanlı güncellemelerde RowVersion ile optimistic concurrency">Optimistic concurrency (RowVersion) on concurrent updates</li>
+              <li data-tr="Arka planda çalışan mail kuyruğu: 5 deneme, hata sebebi kayıtlı">Background mail queue: 5 retries, failure reason stored</li>
+              <li data-tr="Kiracı izolasyonu: her firma yalnızca kendi verisini görür">Tenant isolation: each firm sees only its own data</li>
+            </ul>
+            <div class="metric-row"><strong data-tr="282 test">282 tests</strong><strong data-tr="5 rol">5 roles</strong><strong data-tr="6 aşamalı akış">6-stage flow</strong></div>
           </div>
         </div>
-      </div>
+      </article>
 
-      <div class="glass-level-2 rounded-2xl p-6 hover-lift relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-secondary to-primary rounded-l-2xl"></div>
-        <div class="pl-4">
-          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
-            <div>
-              <span class="font-label-caps text-label-caps text-secondary tracking-widest block mb-1">Staj · Bilgi İşlem</span>
-              <h3 class="font-headline-md text-on-surface text-xl font-semibold">Ulutek Teknopark</h3>
-              <p class="font-body-md text-body-md text-on-surface-variant mt-1">Yönetici konumunda Bilgi İşlem departmanında yazılım geliştirme stajı</p>
+      <article class="project-card" tabindex="0" role="button" aria-pressed="false">
+        <div class="project-inner">
+          <div class="project-front">
+            <pre class="project-art term"><b>$</b> ls docs/adr
+<i>0001-modular-monolith … 0012-ledger-tx</i>
+<b>$</b> status
+<i>phase 1 · double-entry ledger</i></pre>
+            <div class="project-copy">
+              <div class="card-meta"><span class="badge" data-tr="DEVAM EDİYOR">IN PROGRESS</span><span class="private" data-tr="repo şimdilik gizli">repo private for now</span></div>
+              <h3>Turnike</h3>
+              <p data-tr="Kendi çift kayıtlı ödeme defterine sahip bilet ve randevu pazar yeri. Ani satış yükü, koltuk kilidi ve para kaybetmeyen altyapı.">Ticketing &amp; appointment marketplace with its own double-entry payment ledger — built for flash-sale load and zero lost money.</p>
+              <div class="tags"><span>.NET 10</span><span>PostgreSQL</span><span>iyzico sandbox</span><span>Keycloak</span><span>OpenTelemetry</span></div>
             </div>
-            <span class="font-label-caps text-label-caps text-outline glass-level-2 px-4 py-2 rounded-full border border-outline-variant/30 whitespace-nowrap">2025</span>
           </div>
-          <ul class="space-y-1.5 mb-4">
-            <li class="flex items-start gap-2 font-body-md text-on-surface-variant text-sm"><span class="text-secondary mt-0.5">›</span>Bilgi işlem altyapısı ve yazılım süreçlerinde aktif rol üstlenildi</li>
-            <li class="flex items-start gap-2 font-body-md text-on-surface-variant text-sm"><span class="text-secondary mt-0.5">›</span>Kurumsal yazılım geliştirme süreçleri ve proje yönetimi deneyimi kazanıldı</li>
-            <li class="flex items-start gap-2 font-body-md text-on-surface-variant text-sm"><span class="text-secondary mt-0.5">›</span>Teknopark bünyesindeki projelerde yazılım mühendisliği katkısı sağlandı</li>
-          </ul>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-surface-container text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full">Bursa Ulutek Teknopark</span>
-            <span class="bg-surface-container text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded-full">Bilgi İşlem</span>
-            <span class="bg-surface-container text-primary font-label-caps text-label-caps px-3 py-1 rounded-full">Staj</span>
+          <div class="project-back">
+            <div class="card-meta"><span class="badge badge-dark" data-tr="SAHA NOTLARI">FIELD NOTES</span><span class="mono">02</span></div>
+            <h3 data-tr="Para kaybetmeyen<br>bir çekirdek.">A core that<br>never loses money.</h3>
+            <ul>
+              <li data-tr="Önce modüler monolit; servisler ancak ölçüldükten sonra ayrılacak">Modular monolith first; services split only when measured</li>
+              <li data-tr="Çift kayıtlı defter: para yoktan var olmaz, kaybolmaz">Double-entry ledger: money is never created or lost</li>
+              <li data-tr="Idempotency anahtarları ve transactional outbox">Idempotency keys and a transactional outbox</li>
+              <li data-tr="Gerçek PostgreSQL'e karşı entegrasyon testleri (container)">Integration tests against real PostgreSQL (containers)</li>
+            </ul>
+            <div class="metric-row"><strong data-tr="12 ADR">12 ADRs</strong><strong data-tr="Faz 1 / 4">Phase 1 / 4</strong></div>
           </div>
         </div>
+      </article>
+
+      <article class="project-card" tabindex="0" role="button" aria-pressed="false">
+        <div class="project-inner">
+          <div class="project-front">
+            <pre class="project-art term"><b>$</b> docker compose up
+<i>api · postgis · web   ✓</i>
+<b>$</b> gh run list
+<i>✓ CI · 19 regression tests</i></pre>
+            <div class="project-copy">
+              <div class="card-meta"><span class="badge" data-tr="KİŞİSEL">PERSONAL</span><a class="card-link" href="https://github.com/nazimhikmetsasi/OmniCampus" target="_blank" rel="noreferrer" data-tr="KODU GÖR ↗">VIEW CODE ↗</a></div>
+              <h3 data-tr="OmniCampus — Akıllı Kampüs">OmniCampus — Smart Campus</h3>
+              <p data-tr="Mekânsal arama, doluluk bildirimi ve rol tabanlı erişim sunan akıllı kampüs / CBS platformu.">Smart campus GIS platform: spatial search, occupancy reports and role-based access.</p>
+              <div class="tags"><span>.NET 8</span><span>CQRS</span><span>PostGIS</span><span>React 19</span><span>Docker</span></div>
+            </div>
+          </div>
+          <div class="project-back">
+            <div class="card-meta"><span class="badge badge-dark" data-tr="SAHA NOTLARI">FIELD NOTES</span><span class="mono">03</span></div>
+            <h3 data-tr="Haritada<br>tek doğru.">One source of<br>spatial truth.</h3>
+            <ul>
+              <li data-tr="Clean Architecture + CQRS (MediatR)">Clean Architecture + CQRS (MediatR)</li>
+              <li data-tr="Mekânsal sorgular için PostGIS">PostGIS for spatial queries</li>
+              <li data-tr="JWT + RBAC, output caching, rate limiting">JWT + RBAC, output caching, rate limiting</li>
+              <li data-tr="Her push'ta GitHub Actions regresyon testleri">GitHub Actions regression tests on every push</li>
+            </ul>
+            <div class="metric-row"><strong data-tr="42 uç nokta">42 endpoints</strong><strong data-tr="18 handler">18 handlers</strong><strong data-tr="19 CI testi">19 CI tests</strong></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card" tabindex="0" role="button" aria-pressed="false">
+        <div class="project-inner">
+          <div class="project-front">
+            <pre class="project-art term"><b>#</b> 2 users, 1 portion left
+<i>→ 1 reservation · 1 rejected</i>
+<b>$</b> dotnet test
+<i>Passed!  Failed: 0, Passed: 67</i></pre>
+            <div class="project-copy">
+              <div class="card-meta"><span class="badge" data-tr="EKİP · 5 KİŞİ">TEAM · 5 PEOPLE</span><a class="card-link" href="https://github.com/nazimhikmetsasi/sosyalSorumluluk" target="_blank" rel="noreferrer" data-tr="KODU GÖR ↗">VIEW CODE ↗</a></div>
+              <h3 data-tr="Gıda Köprüsü — Gıda Kurtarma Platformu">Gıda Köprüsü — Food Rescue Platform</h3>
+              <p data-tr="Fırın ve restoranlarda gün sonunda kalan taze gıdayı, indirimli ya da ücretsiz olarak ihtiyaç sahibiyle buluşturur.">Connects end-of-day surplus food from bakeries and restaurants with people who need it — discounted or free.</p>
+              <div class="tags"><span>.NET 9 API</span><span>PostgreSQL</span><span>React 19</span><span>PWA</span><span>Docker</span></div>
+            </div>
+          </div>
+          <div class="project-back">
+            <div class="card-meta"><span class="badge badge-dark" data-tr="SAHA NOTLARI">FIELD NOTES</span><span class="mono">04</span></div>
+            <h3 data-tr="Son porsiyon<br>iki kez satılmaz.">The last portion<br>never sells twice.</h3>
+            <ul>
+              <li data-tr="Stok ve fiyat veritabanında atomik hesaplanır">Stock and price computed atomically in the database</li>
+              <li data-tr="Teslimat yalnızca kamerayla QR okutularak onaylanır">Delivery confirmed only by scanning a QR with the camera</li>
+              <li data-tr="Güven skoru sunucuda hesaplanır, elle değiştirilemez">Trust score computed server-side, never editable</li>
+              <li data-tr="Backend'i Supabase'den .NET 9 API'ye taşıdım">Migrated the backend from Supabase to a .NET 9 API</li>
+            </ul>
+            <div class="metric-row"><strong data-tr="67 API testi">67 API tests</strong><strong data-tr="197 UI testi">197 UI tests</strong></div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="flip-hint" data-tr="↻ Ayrıntılar için karta tıkla">↻ Click a card for details</p>
+
+    <div class="others">
+      <h3 data-tr="DİĞER PROJELER">OTHER PROJECTS</h3>
+      <div class="other-row">
+        <strong data-tr="Video Anomali Tespiti">Video Anomaly Detection</strong>
+        <p data-tr="Bitirme tezi. 4 kamerada düşme ve yasak bölge ihlali tespiti: YOLO poz, BoT-SORT, Kafka/Spark, FastAPI.">Bachelor thesis. Fall and restricted-zone detection on 4 cameras: YOLO pose, BoT-SORT, Kafka/Spark, FastAPI.</p>
+        <span class="mono">26.3 FPS · F1 0.41 → 0.67</span>
+        <a class="card-link" href="https://github.com/nazimhikmetsasi/videoAnomaliTespiti" target="_blank" rel="noreferrer" data-tr="KOD ↗">CODE ↗</a>
       </div>
-
+      <div class="other-row">
+        <strong>TRAVEX</strong>
+        <p data-tr="OGTY 2026, 4 kişilik ekip. 150 AGV için güvenli rota ve tur başına emniyet kilidi; simülasyon ve algoritma sorumlusu.">OGTY 2026, 4-person team. Safe routing and a per-tick safety lock for 150 AGVs; simulation &amp; algorithm lead.</p>
+        <span class="mono" data-tr="117 → 0 çarpışma · 12.000 senaryo">117 → 0 collisions · 12,000 cases</span>
+        <span class="private" data-tr="gizli">private</span>
+      </div>
+      <div class="other-row">
+        <strong data-tr="Kurumsal RAG Asistanı">Corporate RAG Assistant</strong>
+        <p data-tr="ULUTEK. Kurum içi dokümanlarda çalışan, yerel LLM'li soru-cevap asistanı: FastAPI, ChromaDB, Ollama.">ULUTEK. On-premise Q&amp;A assistant over internal documents with a local LLM: FastAPI, ChromaDB, Ollama.</p>
+        <span class="mono" data-tr="161 test · sıfır bağımlılık">161 tests · zero dependencies</span>
+        <span class="private" data-tr="gizli">private</span>
+      </div>
+      <div class="other-row">
+        <strong data-tr="Kiosk ve Dijital Ekran Paneli">Kiosk &amp; Digital Signage Panel</strong>
+        <p data-tr="ULUTEK. Teknokent kiosk ekranları için yönetim paneli ve kiosk REST API'si, SignalR canlı komut kanalı.">ULUTEK. Admin panel and kiosk REST API for technopark screens, with a SignalR live command channel.</p>
+        <span class="mono" data-tr="17 varlık · SignalR">17 entities · SignalR</span>
+        <span class="private" data-tr="gizli">private</span>
+      </div>
     </div>
   </section>
 
-  <!-- İLETİŞİM -->
-  <section class="py-24 reveal" id="contact">
-    <div class="text-center mb-16">
-      <span class="font-label-caps text-label-caps text-secondary tracking-widest mb-3 block">Benimle Çalış</span>
-      <h2 class="font-headline-md text-headline-md neon-text-gradient">İletişime Geç</h2>
-      <p class="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-xl mx-auto">Yeni fırsatlara, projelere ve işbirliklerine açığım. Fikirlerini benimle paylaşmaktan çekinme!</p>
+  <section id="experience" class="experience">
+    <div class="container exp-grid">
+      <div>
+        <p class="eyebrow light" data-tr="02 — DENEYİM">02 — EXPERIENCE</p>
+        <h2 data-tr="Üreterek<br><em>öğrenmek.</em>">Learning by<br><em>shipping.</em></h2>
+        <p class="exp-company" data-tr="ULUTEK Teknoloji Geliştirme Bölgesi">ULUTEK Technology Development Zone</p>
+        <p class="exp-role" data-tr="Backend Geliştirici Stajyer<br><span>Tem 2026 — Devam ediyor</span>">Backend Developer Intern<br><span>Jul 2026 — Present</span></p>
+      </div>
+      <div class="achievements">
+        <p><b>01</b><span data-tr=".NET 9 iş akışı uygulaması: 5 rollü yetkilendirme, durum makinesi, optimistic concurrency, arka plan mail kuyruğu, 282 otomatik test.">.NET 9 workflow app: 5-role authorization, state machine, optimistic concurrency, background mail queue, 282 automated tests.</span></p>
+        <p><b>02</b><span data-tr="Dijital ekran sistemi için yönetim paneli ve kiosk REST API'si (ASP.NET MVC, EF6, SQL Server, SignalR).">Admin panel and kiosk REST API for a digital signage system (ASP.NET MVC, EF6, SQL Server, SignalR).</span></p>
+        <p><b>03</b><span data-tr="Yerel LLM ile çalışan kurumsal RAG asistanı ve alana özel değerlendirme seti (FastAPI, ChromaDB, Ollama).">On-premise RAG assistant with a local LLM and a domain-specific evaluation set (FastAPI, ChromaDB, Ollama).</span></p>
+        <p><b>04</b><span data-tr="Legacy .NET Framework kodu ve stored procedure bakımı; GitLab merge request'leriyle CSRF ve yetki düzeltmeleri.">Legacy .NET Framework and stored procedure maintenance; CSRF and authorization fixes via GitLab merge requests.</span></p>
+      </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
-        <a href="mailto:nazimhikmetsasi@gmail.com" class="glass-level-2 rounded-2xl p-5 flex flex-col items-center justify-center gap-3 hover-lift group neon-border text-center">
-          <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-            <span class="material-symbols-outlined text-primary text-3xl">mail</span>
-          </div>
-          <p class="font-label-caps text-label-caps text-on-surface">E-posta</p>
-          <p class="font-body-md text-body-md text-on-surface-variant text-xs">nazimhikmetsasi@gmail.com</p>
-        </a>
-        <a href="https://github.com/nazimhikmetsasi" target="_blank" class="glass-level-2 rounded-2xl p-5 flex flex-col items-center justify-center gap-3 hover-lift group neon-border text-center">
-          <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-            <svg class="w-7 h-7 fill-current text-primary" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          </div>
-          <p class="font-label-caps text-label-caps text-on-surface">GitHub</p>
-          <p class="font-body-md text-body-md text-on-surface-variant text-xs">nazimhikmetsasi</p>
-        </a>
-        <a href="https://linkedin.com/in/nazimhikmetsasi" target="_blank" class="glass-level-2 rounded-2xl p-5 flex flex-col items-center justify-center gap-3 hover-lift group neon-border text-center">
-          <div class="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
-            <svg class="w-7 h-7 fill-current text-secondary" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-          </div>
-          <p class="font-label-caps text-label-caps text-on-surface">LinkedIn</p>
-          <p class="font-body-md text-body-md text-on-surface-variant text-xs">nazimhikmetsasi</p>
-        </a>
+    <div class="container education">
+      <span data-tr="EĞİTİM">EDUCATION</span>
+      <strong data-tr="Manisa Celal Bayar Üniversitesi">Manisa Celal Bayar University</strong>
+      <p data-tr="Yazılım Mühendisliği (Lisans), 2023–2027">B.Sc. Software Engineering, 2023–2027</p>
+    </div>
   </section>
 
-  </div>
+  <section id="approach" class="section container approach">
+    <div class="adr">
+      <div class="adr-head"><span>ADR 0003</span><span class="adr-status" data-tr="KABUL EDİLDİ">ACCEPTED</span></div>
+      <h3 data-tr="Bakiye eşzamanlılığı: koşullu UPDATE">Balance concurrency: conditional UPDATE</h3>
+<pre><code>UPDATE ledger.accounts
+SET balance_kurus = balance_kurus + @d
+WHERE id = @id
+  AND (allow_negative
+       OR (balance_kurus + @d) * normal_sign >= 0);</code></pre>
+      <p><b data-tr="NEDEN">WHY</b><span data-tr="Kontrol ve yazma tek ifadede; yarış penceresi yok. Hesaplar hep aynı sırada kilitlenir, deadlock oluşmaz.">Check and write in one statement — no race window. Accounts always lock in the same order, so no deadlocks.</span></p>
+      <p><b data-tr="REDDEDİLEN">REJECTED</b><span>SELECT … FOR UPDATE · optimistic retry · SERIALIZABLE</span></p>
+      <p><b data-tr="BEDELİ">COST</b><span data-tr="Tek sıcak hesap satışları sıraya sokar; sınır Faz 2'de k6 ile ölçülecek.">One hot account serializes sales — the limit gets measured with k6 in phase 2.</span></p>
+      <small data-tr="Turnike / docs/adr — 12 karar kaydından biri">from Turnike / docs/adr — one of 12 decision records</small>
+    </div>
+    <div class="approach-content">
+      <p class="eyebrow" data-tr="03 — YAKLAŞIM">03 — APPROACH</p>
+      <h2 data-tr="Önce karar,<br><em>sonra kod.</em>">Decisions first,<br><em>then code.</em></h2>
+      <div class="step"><span>01</span><div><h3 data-tr="Planla">Plan</h3><p data-tr="önce karar kaydını (ADR) yaz.">write the decision record (ADR) first.</p></div><svg class="i"><use href="#i-up"/></svg></div>
+      <div class="step"><span>02</span><div><h3 data-tr="Kur">Build</h3><p data-tr="küçük, test edilmiş adımlar.">small, tested increments.</p></div><svg class="i"><use href="#i-up"/></svg></div>
+      <div class="step"><span>03</span><div><h3 data-tr="Ölç">Measure</h3><p data-tr="her iddianın arkasında bir sayı olsun.">every claim backed by a number.</p></div><svg class="i"><use href="#i-up"/></svg></div>
+      <div class="step"><span>04</span><div><h3 data-tr="Belgele">Document</h3><p data-tr="işe yarayanı da, yaramayanı da.">what worked AND what didn’t.</p></div><svg class="i"><use href="#i-up"/></svg></div>
+    </div>
+  </section>
+
+  <section id="skills" class="section container skills">
+    <p class="eyebrow" data-tr="04 — YETENEKLER">04 — SKILLS</p>
+    <div class="skill-grid">
+      <div class="skill-column"><h3>BACKEND</h3><div class="tags"><span>C#</span><span>ASP.NET Core</span><span>ASP.NET MVC</span><span>EF Core</span><span>FastAPI</span><span>SignalR</span><span>SQL Server</span><span>PostgreSQL / PostGIS</span></div></div>
+      <div class="skill-column"><h3 data-tr="YAPAY ZEKA &amp; VERİ">AI &amp; DATA</h3><div class="tags"><span>Python</span><span>PyTorch</span><span>OpenCV</span><span>YOLO</span><span>RAG</span><span>ChromaDB</span><span>Ollama</span><span>Kafka</span><span>Spark</span></div></div>
+      <div class="skill-column"><h3 data-tr="KALİTE &amp; DEVOPS">QUALITY &amp; DEVOPS</h3><div class="tags"><span>xUnit</span><span>Pytest</span><span>Hypothesis</span><span>Docker</span><span>GitHub Actions</span><span>Git</span><span>React 19</span><span>TypeScript</span></div></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact section">
+    <div class="container">
+      <p class="eyebrow" data-tr="05 — İLETİŞİM">05 — CONTACT</p>
+      <div class="contact-grid">
+        <div>
+          <h2 data-tr="Hadi<br><em>tanışalım.</em>">Let's build<br><em>something reliable.</em></h2>
+          <div class="contact-cards">
+            <a href="mailto:nazimhikmetsasi@gmail.com"><svg class="i"><use href="#i-mail"/></svg><span><small data-tr="E-POSTA">EMAIL</small>nazimhikmetsasi@gmail.com</span><svg class="i"><use href="#i-up"/></svg></a>
+            <a href="https://www.linkedin.com/in/nazimhikmetsasi" target="_blank" rel="noreferrer"><svg class="i"><use href="#i-bag"/></svg><span><small>LINKEDIN</small>/in/nazimhikmetsasi</span><svg class="i"><use href="#i-up"/></svg></a>
+            <a href="https://github.com/nazimhikmetsasi" target="_blank" rel="noreferrer"><svg class="i"><use href="#i-code"/></svg><span><small>GITHUB</small>/nazimhikmetsasi</span><svg class="i"><use href="#i-up"/></svg></a>
+          </div>
+        </div>
+        <div class="now">
+          <p class="now-head"><span></span><b data-tr="ŞU AN — EKİM 2026">NOW — OCTOBER 2026</b></p>
+          <dl>
+            <div><dt data-tr="GELİŞTİRİYORUM">BUILDING</dt><dd data-tr="Turnike — Faz 1, çift kayıtlı defter">Turnike — phase 1, double-entry ledger</dd></div>
+            <div><dt data-tr="STAJ">INTERNING</dt><dd data-tr="ULUTEK Teknoloji Geliştirme Bölgesi">ULUTEK Technology Development Zone</dd></div>
+            <div><dt data-tr="OKUL">STUDYING</dt><dd data-tr="Son sınıf · video anomali tespiti tezi">Final year · thesis on video anomaly detection</dd></div>
+            <div><dt data-tr="AÇIĞIM">OPEN TO</dt><dd data-tr="Staj ve yeni mezun backend pozisyonları (2027)">Internships &amp; new-grad backend roles (2027)</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <span class="mark">NHŞ</span>
+      <span>© 2026 Nazım Hikmet Şasi</span>
+      <span data-tr="Saf HTML &amp; CSS · framework yok">Plain HTML &amp; CSS · no framework</span>
+      <div><a href="#top" data-tr="Başa dön ↑">Back to top ↑</a></div>
+    </div>
+  </footer>
 </main>
-
-<footer class="w-full py-12 bg-surface border-t border-white/5 mt-16">
-  <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-    <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary font-headline-md">Nazım Hikmet Şasi</div>
-    <div class="font-body-md text-body-md text-on-surface-variant text-center">© 2025 Nazım Hikmet Şasi. Tüm hakları saklıdır.</div>
-    <div class="flex gap-6">
-      <a href="https://github.com/nazimhikmetsasi" target="_blank" class="text-outline hover:text-secondary transition-colors font-label-caps text-label-caps">GitHub</a>
-      <a href="https://linkedin.com/in/nazimhikmetsasi" target="_blank" class="text-outline hover:text-secondary transition-colors font-label-caps text-label-caps">LinkedIn</a>
-      <a href="mailto:nazimhikmetsasi@gmail.com" class="text-outline hover:text-secondary transition-colors font-label-caps text-label-caps">E-posta</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // Cursor glow
-  const cg=document.getElementById('cursor-glow');
-  document.addEventListener('mousemove',e=>requestAnimationFrame(()=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';}));
-  document.addEventListener('mouseleave',()=>cg.style.opacity='0');
-  document.addEventListener('mouseenter',()=>cg.style.opacity='1');
-
-  // Scroll reveal
-  function reveal(){document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-80)el.classList.add('active');});}
-  window.addEventListener('scroll',reveal);reveal();
-
-  // Mobile menu
-  const mt=document.getElementById('menu-toggle'),mm=document.getElementById('mobile-menu');
-  mt.addEventListener('click',()=>{mm.classList.toggle('open');mt.querySelector('.material-symbols-outlined').textContent=mm.classList.contains('open')?'close':'menu';});
-  mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('open');mt.querySelector('.material-symbols-outlined').textContent='menu';}));
-
-  // Navbar scroll
-  window.addEventListener('scroll',()=>{document.getElementById('navbar').style.background=window.scrollY>50?'rgba(14,19,34,0.95)':'rgba(14,19,34,0.3)';});
-
-
-</script>
+<script src="script.js"></script>
 </body>
 </html>
