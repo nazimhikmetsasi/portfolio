@@ -11,9 +11,22 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231b211e'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Arial' font-weight='700' font-size='26' fill='%23f2eee5' letter-spacing='-3'%3ENH%C5%9E%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta name="theme-color" content="#171816">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#000000">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Anton&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    (function (d) {
+      d.classList.add('js');
+      try {
+        var t = localStorage.getItem('tier') || (matchMedia('(pointer: coarse)').matches ? 'med' : 'high');
+        d.dataset.tier = t;
+        if (t === 'high' && !matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('seen')) {
+          d.classList.add('loading');
+          setTimeout(function () { d.classList.remove('loading'); }, 7000);
+        }
+      } catch (e) { d.dataset.tier = 'med'; }
+    })(document.documentElement);
+  </script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -25,7 +38,23 @@
 </svg>
 <style>.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}</style>
 
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-count"><span id="loader-num">0</span><i>%</i></div>
+  <div class="loader-panel">
+    <div class="loader-row"><span>INITIALIZING_ENGINE</span><span id="loader-pct">0%</span></div>
+    <div class="loader-bar"><i id="loader-bar"></i></div>
+    <div class="loader-go" id="loader-go">LOADING</div>
+  </div>
+</div>
+<div class="noise" aria-hidden="true"></div>
+<canvas class="trail" id="trail" aria-hidden="true"></canvas>
+<div class="cursor" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
+<div class="hud" aria-hidden="true"><span>SCROLL <b id="hud-scroll">000</b>%</span><span><b id="hud-clock">--:--:--</b> TRT</span></div>
+<div class="tier" role="group" aria-label="Performance tier">
+  <span data-tr="PERFORMANS">PERFORMANCE TIER</span>
+  <button type="button" data-tier="high" aria-pressed="true" data-tr="YÜKSEK">HIGH</button><button type="button" data-tier="med" aria-pressed="false" data-tr="ORTA">MED</button><button type="button" data-tier="saver" aria-pressed="false" data-tr="TASARRUF">SAVER</button>
+</div>
 <main class="site-shell">
   <header class="topbar">
     <div class="container topbar-inner">
@@ -46,26 +75,45 @@
   </header>
 
   <section id="top" class="hero">
+    <aside class="hero-stats" aria-hidden="true">
+      <p class="hs-title">SYSTEM_STATS</p>
+      <p class="hs-status"><i></i><span data-tr="STABİL">STABLE</span></p>
+      <div class="hs-bar"><span>TESTS_PASSING</span><b>282</b><em style="--w:100%"></em></div>
+      <div class="hs-bar"><span>COLLISIONS</span><b>117 → 0</b><em style="--w:4%"></em></div>
+      <ul class="hs-log">
+        <li>&gt; ACTIVE_STACK: DOTNET_REACT_PYTHON</li>
+        <li>&gt; BASE: MANISA_TR</li>
+        <li>&gt; STATUS: OPEN_TO_2027_ROLES</li>
+        <li>&gt; SYSTEM_PERF: [<b id="hs-perf">HIGH</b>]</li>
+      </ul>
+    </aside>
     <div class="container hero-grid">
-      <div class="hero-main">
+      <div class="hero-top">
         <p class="eyebrow light" data-tr="FULL-STACK GELİŞTİRİCİ · .NET · REACT · PYTHON">FULL-STACK DEVELOPER · .NET · REACT · PYTHON</p>
-        <h1 data-tr="Kendini ölçen<br><em>sistemler kuruyorum.</em>">I build systems<br><em>that measure themselves.</em></h1>
+        <p class="hero-meta" aria-hidden="true">[ INFO_LOG ]</p>
+      </div>
+      <h1 data-tr="Kendini ölçen<br><em>sistemler kuruyorum.</em>">I build systems<br><em>that measure themselves.</em></h1>
+      <div class="hero-bottom">
         <p class="hero-sub" data-tr="Backend'de .NET / C# ve Python, frontend'de React ve TypeScript. Veritabanından arayüze uçtan uca ürün geliştiriyorum.">Full-stack developer — .NET / C# and Python on the backend, React and TypeScript on the frontend. I build products end to end, from the database to the UI.</p>
         <div class="hero-actions">
           <a class="button button-acid" href="#work"><span data-tr="Projeleri Gör">View Work</span> <svg class="i"><use href="#i-down"/></svg></a>
           <a class="button button-outline-light" href="https://github.com/nazimhikmetsasi" target="_blank" rel="noreferrer">GitHub <svg class="i"><use href="#i-code"/></svg></a>
         </div>
       </div>
-      <aside class="hero-aside" aria-hidden="true">
-        <span class="orb"></span>
-        <p data-tr="BACKEND<br>BİR BAKIŞ<br><strong>AÇISIDIR.</strong>">BACKEND<br>IS A<br><strong>POINT<br>OF VIEW.</strong></p>
-      </aside>
     </div>
     <div class="container hero-foot">
       <p class="availability"><span></span><b data-tr="Staja ve yeni mezun pozisyonlarına açığım — 2027">Open to internships &amp; new-grad roles — 2027</b></p>
       <a class="scroll-cue" href="#about"><span data-tr="kaydır">scroll</span> ↓</a>
     </div>
   </section>
+
+  <div class="ticker" aria-hidden="true"><div class="ticker-track">
+    <span><b>CORE_ID</b><em data-tr="FULL-STACK GELİŞTİRİCİ">FULL-STACK DEVELOPER</em></span>
+    <span><b data-tr="MÜSAİTLİK">AVAILABILITY</b><em data-tr="AÇIK — 2027">OPEN — 2027</em></span>
+    <span><b>STACK</b><em>.NET / REACT / PYTHON</em></span>
+    <span><b data-tr="TESTLER">TESTS</b><em data-tr="282 GEÇİYOR">282 PASSING</em></span>
+    <span><b data-tr="KONUM">BASE</b><em>MANISA, TR</em></span>
+  </div></div>
 
   <section class="stats">
     <div class="container stats-grid">
@@ -77,7 +125,6 @@
   </section>
 
   <section id="about" class="section container about">
-    <figure class="about-photo"><img src="assets/profile.jpg" alt="Nazım Hikmet Şasi" width="720" height="960" loading="lazy"></figure>
     <div>
       <p class="eyebrow" data-tr="00 — HAKKIMDA">00 — ABOUT</p>
       <h2 data-tr="Merhaba,<br><em>ben Nazım.</em>">Hi,<br><em>I'm Nazım.</em></h2>
